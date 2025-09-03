@@ -88,7 +88,7 @@ fileInput.addEventListener('change', (event) => {
             if (i > sheetData.length-1) {
                 clearInterval(interval);
             }
-        }, 100); // Wait for 1000ms (1 seconds) between each iteration
+        }, 1000); // Wait for 1000ms (1 seconds) between each iteration
 
 
 
