@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         atoss main: read from excel
 // @namespace    http://tampermonkey.net/
-// @version      2024-11-28
+// @version      1.01
 // @description  try to take over the world!
 // @author       You
 // @match        https://he-atoss.horiba.eu:5000/?date=*
