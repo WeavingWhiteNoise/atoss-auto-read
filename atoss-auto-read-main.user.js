@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         atoss main: read from excel
 // @namespace    http://tampermonkey.net/
-// @version      1.01
+// @version      1.02
 // @description  try to take over the world!
 // @author       You
 // @match        https://he-atoss.horiba.eu:5000/?date=*
@@ -88,7 +88,7 @@ fileInput.addEventListener('change', (event) => {
             if (i > sheetData.length-1) {
                 clearInterval(interval);
             }
-        }, 500); // Wait for 1000ms (1 seconds) between each iteration
+        }, 1000); // Wait for 1000ms (1 seconds) between each iteration
 
 
 
