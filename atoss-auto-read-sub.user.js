@@ -56,21 +56,21 @@ if (sheetData) {
     console.log('Retrieved Data:', sheetData[index]);
 
     let BOX_actionType = document.getElementById("actionType");
-    BOX_actionType.value = sheetData[index].Value1;
+    BOX_actionType.value = sheetData[index].Leistungsart;
     BOX_actionType.classList.add("valid");
 
     let BOX_Auftrag = document.getElementById("Auftrag");
-    selectAutocomplete(BOX_Auftrag, sheetData[index].Value2, sheetData[index].Value3);
+    selectAutocomplete(BOX_Auftrag, sheetData[index].Empfaenger, sheetData[index].Vorgang);
 
     let BOX_alternativWorkCenter = document.getElementById("alternativWorkCenter");
-    BOX_alternativWorkCenter.value = sheetData[index].Value4;
+    BOX_alternativWorkCenter.value = sheetData[index].Arbeitsplatz;
     BOX_alternativWorkCenter.classList.add("valid");
 
     let BOX_catsHours = document.getElementById("catsHours");
-    BOX_catsHours.value = sheetData[index].Value5;
+    BOX_catsHours.value = sheetData[index].Stunden;
 
     let BOX_Text = document.getElementById("Text");
-    BOX_Text.value = sheetData[index].Value6;
+    BOX_Text.value = sheetData[index].Kommentar;
 
     // Find the button by value attribute
     let saveButton = document.querySelector('input[type="submit"][value="Speichern"]');
