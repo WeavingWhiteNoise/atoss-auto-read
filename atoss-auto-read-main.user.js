@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         atoss main: read from excel
 // @namespace    http://tampermonkey.net/
-// @version      1.02
+// @version      1.03
 // @description  try to take over the world!
 // @author       You
 // @match        https://he-atoss.horiba.eu:5000/?date=*
@@ -9,6 +9,36 @@
 // @require      https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js
 // @grant        none
 // ==/UserScript==
+
+
+// change the name of the site in the head
+const navbarBrand = document.querySelector('.navbar-brand');
+if (navbarBrand) {
+    navbarBrand.textContent = "HORIBA Stundenverteilung (Script Modification)";
+}
+
+
+// save position of scroll bar
+function saveScrollPosition() {
+    // Select the first element with the class 'preserveDiv'
+    const preserveDiv = document.querySelector('.tableFixHeadIndex');
+    if (preserveDiv) {
+        localStorage.setItem('preservedScrollPosition', preserveDiv.scrollTop);
+    }
+}
+
+// Restore the scroll position after page load
+const preserveDiv = document.querySelector('.tableFixHeadIndex');
+const savedScrollPosition = localStorage.getItem('preservedScrollPosition');
+preserveDiv.scrollTop = parseInt(savedScrollPosition, 10);
+
+// Add event listener to all "Korrektur" buttons
+document.querySelectorAll('a.btn.btn-light, a.btn.btn-outline-secondary').forEach(button => {
+    button.addEventListener('click', function () {
+        // Save the scroll position before the page redirects
+        saveScrollPosition();
+    });
+});
 
 
 const sheetData = JSON.parse(localStorage.getItem('excelData'));
