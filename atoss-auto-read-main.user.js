@@ -111,11 +111,11 @@ fileInput.addEventListener('change', (event) => {
             // console.log(excelDateToJSDate(sheetData[i].Date))
 
             // open each entry in new window
-            //window.open('https://he-atoss.horiba.eu:5000/Home/AddOrEdit?date=' + excelDateToJSDate(sheetData[i].Date), '_blank');
-            GM_openInTab('https://he-atoss.horiba.eu:5000/Home/AddOrEdit?date=' + excelDateToJSDate(sheetData[i].Date), '_blank',
+            window.open('https://he-atoss.horiba.eu:5000/Home/AddOrEdit?date=' + excelDateToJSDate(sheetData[i].Date), '_blank');
+            /*GM_openInTab('https://he-atoss.horiba.eu:5000/Home/AddOrEdit?date=' + excelDateToJSDate(sheetData[i].Date), '_blank',
                 active: false,
                 insert: true
-            });
+            });*/
             i++;
 
             // if all entries are done, clear the intervall / dummy for-loop
