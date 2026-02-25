@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         atoss sub: read from excel
 // @namespace    http://tampermonkey.net/
-// @version      2024-11-28
+// @version      1.03
 // @description  read Excel file in Tampermonkey
 // @author       You
 // @match        https://he-atoss.horiba.eu:5000/Home/AddOrEdit?date=*
