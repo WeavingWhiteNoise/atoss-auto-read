@@ -89,3 +89,9 @@ For each row:
 - The window closes automatically.
 
 After the import process is complete, you may refresh the ATOSS main page to view the updated entries.
+
+---
+
+# Troubleshooting
+
+- Some browsers block the `atoss-auto-read-sub.user.js` script. The user has to allow the external pop-ups.
