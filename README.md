@@ -66,7 +66,7 @@ The import file must be an **Excel sheet** containing the following columns:
 - **Date**  
   - Tested formats: `dd.mm.yyyy` and `yyyy.mm.dd`
 - **Leistungsart**
-- **Empfänger**
+- **Empfaenger**
 - **Vorgang** (text)
 - **Arbeitsplatz**
 - **Stunden** (text)
