@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         atoss main: read from excel
+// @name         tampermonkey_script_atoss_main
 // @namespace    http://tampermonkey.net/
 // @version      1.03
-// @description  Lädt das eigentliche Script von zentraler URL
+// @description  load github script via url
 // @match        https://he-atoss.horiba.eu:5000/*
 // @grant        GM_xmlhttpRequest
 // @require      https://raw.githubusercontent.com/WeavingWhiteNoise/atoss-auto-read/main/atoss-auto-read-main.user.js?v=1.03
