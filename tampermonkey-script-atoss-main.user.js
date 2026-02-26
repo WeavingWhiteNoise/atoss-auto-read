@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         tampermonkey_script_atoss_main
+// @name         tampermonkey-script-atoss-main
 // @namespace    http://tampermonkey.net/
 // @version      1.03
 // @description  load github script via url
