@@ -67,7 +67,7 @@ if (sheetData) {
     BOX_alternativWorkCenter.classList.add("valid");
 
     let BOX_catsHours = document.getElementById("catsHours");
-    BOX_catsHours.value = sheetData[index].Stunden;
+    BOX_catsHours.value = sheetData[index].Stunden.toFixed(2);
 
     let BOX_Text = document.getElementById("Text");
     BOX_Text.value = sheetData[index].Kommentar;
