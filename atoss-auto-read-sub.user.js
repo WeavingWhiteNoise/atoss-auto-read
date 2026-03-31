@@ -70,18 +70,20 @@ if (sheetData) {
             box-shadow: 0 5px 25px rgba(0,0,0,0.3);
             z-index: 10000;
             min-width: 300px;
-            text-align: center;
             font-family: sans-serif;
         ">
-            <p style="margin: 0 0 20px 0; font-size: 16px; color: #333;">
-                Loading. Please wait.
-                ${sheetData[index].Leistungsart}
-                ${sheetData[index].Empfaenger}
-                ${sheetData[index].Vorgang}
-                ${sheetData[index].Arbeitsplatz}
-                ${sheetData[index].Stunden}
-                ${sheetData[index].Kommentar}
-            </p>
+            <div style="margin: 0 0 20px 0; font-size: 16px; color: #333;">
+                <strong>Loading. Please wait.</strong>
+                <br><br>
+                <div style="white-space: pre-line;">
+                    Leistungsart: ${sheetData[index].Leistungsart || '-'}
+                    Empfaenger: ${sheetData[index].Empfaenger || '-'}
+                    Vorgang: ${sheetData[index].Vorgang || '-'}
+                    Arbeitsplatz: ${sheetData[index].Arbeitsplatz || '-'}
+                    Stunden: ${sheetData[index].Stunden || '-'}
+                    Kommentar: ${sheetData[index].Kommentar || '-'}
+                </div>
+            </div>
             <button id="closePopupBtn" style="
                 padding: 8px 20px;
                 background: #007bff;
