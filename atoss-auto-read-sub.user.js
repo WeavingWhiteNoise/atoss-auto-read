@@ -14,7 +14,7 @@
 const sheetData = JSON.parse(localStorage.getItem('excelData'));
 const index = JSON.parse(localStorage.getItem('index'));
 
-/*
+
 function selectByMouseEvents(matchSubstr){
 
     // get pop-up menue
@@ -74,7 +74,7 @@ if (sheetData) {
             font-family: sans-serif;
         ">
             <p style="margin: 0 0 20px 0; font-size: 16px; color: #333;">
-                Loading. Please wait.
+                Loading. Please wait. ${sheetData[index]}
             </p>
             <button id="closePopupBtn" style="
                 padding: 8px 20px;
@@ -107,112 +107,6 @@ if (sheetData) {
         popup.remove();
         overlay.remove();
     });
-*/
-
-// Function to transform numbers
-function transformNumber(str) {
-    let num = parseFloat(str);
-    if (isNaN(num)) return str;
-    return num.toFixed(2);
-}
-    
-// Get all column headers (keys from first object)
-const headers = sheetData.length > 0 ? Object.keys(sheetData[0]) : [];
-
-// Build HTML
-let tableHtml = `
-    <div style="
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: white;
-        padding: 25px;
-        border-radius: 10px;
-        box-shadow: 0 5px 30px rgba(0,0,0,0.3);
-        z-index: 10000;
-        max-width: 90%;
-        max-height: 80vh;
-        overflow: auto;
-        font-family: Arial, sans-serif;
-    ">
-        <div style="text-align: center; margin-bottom: 20px;">
-            <div style="font-size: 18px; font-weight: bold; color: #007bff;">
-                Loading. Please wait.
-            </div>
-        </div>
-        <div style="border-top: 1px solid #eee; margin: 15px 0;"></div>
-        <div style="font-weight: bold; margin-bottom: 10px;">Data from sheetData (${sheetData.length} rows):</div>
-        <table style="
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        ">
-            <thead>
-                <tr style="background: #007bff; color: white;">
-                    ${headers.map(header => `<th style="padding: 10px; text-align: left;">${header}</th>`).join('')}
-                </tr>
-            </thead>
-            <tbody>
-    `;
-    
-    // Add data rows
-    sheetData.forEach((row, idx) => {
-        tableHtml += `<tr style="border-bottom: 1px solid #ddd; ${idx % 2 === 0 ? 'background: #f9f9f9;' : ''}">`;
-        headers.forEach(header => {
-            let value = row[header];
-            if (header === 'Stunden' || header === 'hours') {
-                value = transformNumber(value);
-            }
-            tableHtml += `<td style="padding: 8px;">${value !== undefined ? value : ''}</td>`;
-        });
-        tableHtml += `</tr>`;
-    });
-    
-    tableHtml += `
-                </tbody>
-            </table>
-            <div style="margin-top: 20px; text-align: center;">
-                <button id="closePopupBtn" style="
-                    padding: 8px 20px;
-                    background: #007bff;
-                    color: white;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    font-size: 14px;
-                ">Close</button>
-            </div>
-        </div>
-    `;
-    
-    const popup = document.createElement('div');
-    popup.innerHTML = tableHtml;
-    
-    const overlay = document.createElement('div');
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 9999;
-    `;
-    
-    document.body.appendChild(overlay);
-    document.body.appendChild(popup);
-    
-    document.getElementById('closePopupBtn').addEventListener('click', () => {
-        popup.remove();
-        overlay.remove();
-    });
-    
-    overlay.addEventListener('click', () => {
-        popup.remove();
-        overlay.remove();
-    });
-
 
 
     // Leistungsart
