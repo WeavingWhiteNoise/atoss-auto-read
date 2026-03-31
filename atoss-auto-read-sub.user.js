@@ -81,7 +81,10 @@ if (sheetData) {
     BOX_alternativWorkCenter.classList.add("valid");
 
     let BOX_catsHours = document.getElementById("catsHours");
-    BOX_catsHours.value = sheetData[index].Stunden;
+    let str = sheetData[index].Stunden
+    let num = parseFloat(str.replace('.', ','));
+    num = Math.round(num * 100) / 100
+    BOX_catsHours.value = num.toString();
 
     let BOX_Text = document.getElementById("Text");
     BOX_Text.value = sheetData[index].Kommentar;
