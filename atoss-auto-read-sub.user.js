@@ -14,6 +14,20 @@
 const sheetData = JSON.parse(localStorage.getItem('excelData'));
 const index = JSON.parse(localStorage.getItem('index'));
 
+// replace dot with comma in time
+function replaceDotWithComma() {
+    const textbox = document.getElementById('catsHours');
+    console.log('replace dot with comma')
+    // Replace '.' with ',' in the textbox value
+    textbox.value = textbox.value.replace('.', ',');
+};
+
+// Add event listener to the textbox
+const secondTextbox = document.getElementById('catsHours');
+secondTextbox.addEventListener('blur', function() {
+    replaceDotWithComma();
+});
+
 function selectByMouseEvents(matchSubstr){
 
     // get pop-up menue
