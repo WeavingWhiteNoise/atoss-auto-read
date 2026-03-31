@@ -74,7 +74,7 @@ if (sheetData) {
             font-family: sans-serif;
         ">
             <p style="margin: 0 0 20px 0; font-size: 16px; color: #333;">
-                Loading. Please wait. ${sheetData[index]}
+                Loading. Please wait.
             </p>
             <button id="closePopupBtn" style="
                 padding: 8px 20px;
