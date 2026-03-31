@@ -82,9 +82,9 @@ if (sheetData) {
 
     let BOX_catsHours = document.getElementById("catsHours");
     let str = sheetData[index].Stunden
-    let num = parseFloat(str.replace('.', ','));
+    let num = parseFloat(str.replace(',', '.'));
     num = Math.round(num * 100) / 100
-    BOX_catsHours.value = num.toString();
+    BOX_catsHours.value = num.toString().replace('.', ',');
 
     let BOX_Text = document.getElementById("Text");
     BOX_Text.value = sheetData[index].Kommentar;
