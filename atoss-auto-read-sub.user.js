@@ -14,19 +14,6 @@
 const sheetData = JSON.parse(localStorage.getItem('excelData'));
 const index = JSON.parse(localStorage.getItem('index'));
 
-// replace dot with comma in time
-/*function replaceDotWithComma() {
-    const textbox = document.getElementById('catsHours');
-    console.log('replace dot with comma')
-    // Replace '.' with ',' in the textbox value
-    textbox.value = textbox.value.replace('.', ',');
-};
-
-// Add event listener to the textbox
-const secondTextbox = document.getElementById('catsHours');
-secondTextbox.addEventListener('blur', function() {
-    replaceDotWithComma();
-});*/
 
 function selectByMouseEvents(matchSubstr){
 
@@ -69,23 +56,28 @@ function selectAutocomplete(inputElement, searchTerm1, searchTerm2) {
 if (sheetData) {
     console.log('Retrieved Data:', sheetData[index]);
 
+    // Leistungsart
     let BOX_actionType = document.getElementById("actionType");
     BOX_actionType.value = sheetData[index].Leistungsart;
     BOX_actionType.classList.add("valid");
 
+    // Auftrag
     let BOX_Auftrag = document.getElementById("Auftrag");
     selectAutocomplete(BOX_Auftrag, sheetData[index].Empfaenger, sheetData[index].Vorgang);
 
+    // Arbeitsplatz
     let BOX_alternativWorkCenter = document.getElementById("alternativWorkCenter");
     BOX_alternativWorkCenter.value = sheetData[index].Arbeitsplatz;
     BOX_alternativWorkCenter.classList.add("valid");
 
+    // Stunden
     let BOX_catsHours = document.getElementById("catsHours");
     let str = sheetData[index].Stunden
     let num = parseFloat(str.replace(',', '.'));
     num = Math.round(num * 100) / 100
     BOX_catsHours.value = num.toString().replace('.', ',');
 
+    // Kommentar
     let BOX_Text = document.getElementById("Text");
     BOX_Text.value = sheetData[index].Kommentar;
 
