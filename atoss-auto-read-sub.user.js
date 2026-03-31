@@ -74,7 +74,13 @@ if (sheetData) {
             font-family: sans-serif;
         ">
             <p style="margin: 0 0 20px 0; font-size: 16px; color: #333;">
-                Loading. Please wait. ${sheetData[index].Arbeitsplatz}
+                Loading. Please wait.
+                ${sheetData[index].Leistungsart}
+                ${sheetData[index].Empfaenger}
+                ${sheetData[index].Vorgang}
+                ${sheetData[index].Arbeitsplatz}
+                ${sheetData[index].Stunden}
+                ${sheetData[index].Kommentar}
             </p>
             <button id="closePopupBtn" style="
                 padding: 8px 20px;
