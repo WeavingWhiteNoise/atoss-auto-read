@@ -56,6 +56,60 @@ function selectAutocomplete(inputElement, searchTerm1, searchTerm2) {
 if (sheetData) {
     console.log('Retrieved Data:', sheetData[index]);
 
+
+    const popup = document.createElement('div');
+    popup.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            z-index: 10000;
+            min-width: 300px;
+            text-align: center;
+            font-family: sans-serif;
+        ">
+            <p style="margin: 0 0 20px 0; font-size: 16px; color: #333;">
+                Loading. Please wait.
+            </p>
+            <button id="closePopupBtn" style="
+                padding: 8px 20px;
+                background: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+            ">Close</button>
+        </div>
+    `;
+    
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 9999;
+    `;
+    
+    document.body.appendChild(overlay);
+    document.body.appendChild(popup);
+    
+    // Close button functionality
+    document.getElementById('closePopupBtn').addEventListener('click', () => {
+        popup.remove();
+        overlay.remove();
+    });
+
+    
+
     // Leistungsart
     let BOX_actionType = document.getElementById("actionType");
     BOX_actionType.value = sheetData[index].Leistungsart;
