@@ -31,6 +31,15 @@ Tampermonkey allows custom scripts to modify and automate the ATOSS web interfac
 
 ---
 
+## 3. Update the User Scripts
+
+1. Open the **Tampermonkey Dashboard**.
+2. Open one of the Scripts.
+3. Navigate to **Externals**.
+4. Click the **Update** Button.
+
+---
+
 # Scripts
 
 ## Main Script
