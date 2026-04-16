@@ -154,7 +154,7 @@ tableImportButton.addEventListener('click', () => {
         i++;
 
         // if all entries are done, clear the intervall / dummy for-loop
-        if (i > tableData.length - 1) {
+        if (i > tableData.length) {
             clearInterval(interval);
             // Clean up localStorage so old data doesn't persist when manually opening pages
             setTimeout(() => {
@@ -196,7 +196,7 @@ fileInput.addEventListener('change', (event) => {
             i++;
 
             // if all entries are done, clear the intervall / dummy for-loop
-            if (i > sheetData.length - 1) {
+            if (i > sheetData.length) {
                 clearInterval(interval);
                 // Clean up localStorage so old data doesn't persist when manually opening pages
                 setTimeout(() => {
