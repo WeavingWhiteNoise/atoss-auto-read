@@ -80,14 +80,15 @@ function collectDataFromOverviewTable() {
         const tds = row.querySelectorAll('td');
         if (!tds.length) return;
 
-        const dateText = (tds[0].textContent || '').trim();
-        if (!/^\d{2}\.\d{2}\.\d{4}$/.test(dateText)) return;
+        // Date cells contain a day prefix like "Mi, 15.04.2026" — extract dd.mm.yyyy
+        const rawDateText = (tds[0].textContent || '').trim();
+        const dateMatch = rawDateText.match(/(\d{2}\.\d{2}\.\d{4})/);
+        if (!dateMatch) return;
+        const dateText = dateMatch[1];
 
-        const centers = row.querySelectorAll('.text-center');
-        const thirdCenter = centers[2];
-        if (!thirdCenter) return;
-
-        const timeText = (thirdCenter.textContent || '').trim().replace(/\s+/g, ' ');
+        // td[3] is always "Verteilbare Stunden" regardless of which tds have .text-center
+        if (tds.length < 4) return;
+        const timeText = (tds[3].textContent || '').trim().replace(/\s+/g, ' ');
         if (!timeText) return;
 
         // Keep 0,00 as well, as requested
@@ -148,8 +149,8 @@ tableImportButton.addEventListener('click', () => {
         localStorage.setItem('iterator', 1);
         // console.log(excelDateToJSDate(tableData[i].Date))
 
-        // open each entry in new window
-        window.open('https://he-atoss.horiba.eu:5000/Home/AddOrEdit?date=' + excelDateToJSDate(tableData[i].Date), '_blank');
+        // open each entry in new window — Date is already dd.mm.yyyy from the table
+        window.open('https://he-atoss.horiba.eu:5000/Home/AddOrEdit?date=' + tableData[i].Date, '_blank');
         i++;
 
         // if all entries are done, clear the intervall / dummy for-loop
