@@ -89,7 +89,7 @@ function collectDataFromOverviewTable() {
         // td[3] is always "Verteilbare Stunden" regardless of which tds have .text-center
         if (tds.length < 4) return;
         const timeText = (tds[3].textContent || '').trim().replace(/\s+/g, ' ');
-        if (!timeText) return;
+        if (!timeText || timeText === "0,00") return;
 
         // Keep 0,00 as well, as requested
         result.push({
