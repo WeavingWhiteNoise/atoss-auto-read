@@ -99,12 +99,13 @@ function collectDataFromOverviewTable() {
             Empfaenger: "8001233873",
             Leistungsart: "114012",
             Vorgang: "0130",
-            Arbeitsplatz: "D330000"
+            Arbeitsplatz: "D330000",
+            Kommentar: "leftover"
         });
     });
 
 
-    const preview = ['Date; Stunden; Project_name; Empfaenger; Leistungsart; Vorgang; Arbeitsplatz', ...result.map(r => `${r.Date}; ${r.Stunden}; ${r.Project_name}; ${r.Empfaenger}; ${r.Leistungsart}; ${r.Vorgang}; ${r.Arbeitsplatz}`)].join('\n');
+    const preview = ['Date; Stunden; Project_name; Empfaenger; Leistungsart; Vorgang; Arbeitsplatz, Kommentar', ...result.map(r => `${r.Date}; ${r.Stunden}; ${r.Project_name}; ${r.Empfaenger}; ${r.Leistungsart}; ${r.Vorgang}; ${r.Arbeitsplatz}; ${r.Kommentar}`)].join('\n');
     console.log(preview);
 
     return result;
