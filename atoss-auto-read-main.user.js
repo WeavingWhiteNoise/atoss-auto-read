@@ -156,6 +156,10 @@ tableImportButton.addEventListener('click', () => {
         // if all entries are done, clear the intervall / dummy for-loop
         if (i > tableData.length - 1) {
             clearInterval(interval);
+            // Clean up localStorage so old data doesn't persist when manually opening pages
+            localStorage.removeItem('excelData');
+            localStorage.removeItem('iterator');
+            localStorage.removeItem('index');
         }
     }, 4000); // Wait for 1000ms (1 seconds) between each iteration
 
@@ -192,6 +196,10 @@ fileInput.addEventListener('change', (event) => {
             // if all entries are done, clear the intervall / dummy for-loop
             if (i > sheetData.length - 1) {
                 clearInterval(interval);
+                // Clean up localStorage so old data doesn't persist when manually opening pages
+                localStorage.removeItem('excelData');
+                localStorage.removeItem('iterator');
+                localStorage.removeItem('index');
             }
         }, 4000); // Wait for 1000ms (1 seconds) between each iteration
 
