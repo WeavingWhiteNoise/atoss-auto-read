@@ -98,7 +98,7 @@ function collectDataFromOverviewTable() {
             Project_name: "Gemeinkosten",
             Empfaenger: "8000002561",
             Leistungsart: "114012",
-            Vorgang: "0130",
+            Vorgang: "0040",
             Arbeitsplatz: "D330000",
             Kommentar: "leftover"
         });
