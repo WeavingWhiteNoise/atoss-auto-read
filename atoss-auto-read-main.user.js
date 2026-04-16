@@ -43,21 +43,21 @@ document.querySelectorAll('a.btn.btn-light, a.btn.btn-outline-secondary').forEac
 
 const sheetData = JSON.parse(localStorage.getItem('excelData'));
 
-if(sheetData) {
+if (sheetData) {
     console.log("Storage data exists!")
     let numOfEntries = sheetData.length;
     console.log("Length of sheetData <<", numOfEntries);
     let i = parseFloat(localStorage.getItem('iterator'));
     console.log("iterator <<", i)
     let ii = numOfEntries - i
-    i = i+1
+    i = i + 1
     localStorage.setItem('iterator', i);
-    if(ii >= 0){
+    if (ii >= 0) {
         //localStorage.removeItem('excelData'); // removes only 'excelData'
         if (window.opener) {
             window.close(); // only works if opened via script
         }
-    } else{
+    } else {
         localStorage.removeItem('excelData');
         localStorage.removeItem('iterator');
     }
@@ -72,8 +72,42 @@ function excelDateToJSDate(excelDate) {
     return `${day}.${month}.${year}`;
 }
 
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function collectDataFromOverviewTable() {
+    const result = [];
+    const rows = document.querySelectorAll('table tbody tr');
+
+    rows.forEach((row) => {
+        const tds = row.querySelectorAll('td');
+        if (!tds.length) return;
+
+        const dateText = (tds[0].textContent || '').trim();
+        if (!/^\d{2}\.\d{2}\.\d{4}$/.test(dateText)) return;
+
+        const centers = row.querySelectorAll('.text-center');
+        const thirdCenter = centers[2];
+        if (!thirdCenter) return;
+
+        const timeText = (thirdCenter.textContent || '').trim().replace(/\s+/g, ' ');
+        if (!timeText) return;
+
+        // Keep 0,00 as well, as requested
+        result.push({
+            Date: dateText,
+            Stunden: timeText,
+            Project_name: "Gemeinkosten",
+            Empfaenger: "8001233873",
+            Leistungsart: "114012",
+            Vorgang: "0130",
+            Arbeitsplatz: "DD330020"
+        });
+    });
+
+
+    const preview = ['Date; Stunden; Project_name; Empfaenger; Leistungsart; Vorgang; Arbeitsplatz', ...result.map(r => `${r.Date}; ${r.Stunden}; ${r.Project_name}; ${r.Empfaenger}; ${r.Leistungsart}; ${r.Vorgang}; ${r.Arbeitsplatz}`)].join('\n');
+    console.log(preview);
+
+    return result;
+
 }
 
 
@@ -85,6 +119,46 @@ fileInput.style.position = 'fixed';
 fileInput.style.top = '10px';
 fileInput.style.left = '600px';
 document.body.appendChild(fileInput);
+
+// New button: import directly from visible table
+const tableImportButton = document.createElement('button');
+tableImportButton.type = 'button';
+tableImportButton.textContent = 'Import leftover hours';
+tableImportButton.style.position = 'fixed';
+tableImportButton.style.top = '10px';
+tableImportButton.style.left = '760px';
+tableImportButton.style.zIndex = '99999';
+tableImportButton.style.padding = '3px 8px';
+tableImportButton.style.cursor = 'pointer';
+document.body.appendChild(tableImportButton);
+
+tableImportButton.addEventListener('click', () => {
+    const tableData = collectDataFromOverviewTable();
+    if (!tableData.length) {
+        alert("No valid rows found in table.");
+        return;
+    }
+
+    // dummy for-loop
+    let i = 0;
+    const interval = setInterval(() => {
+        // retrieve old values
+        localStorage.setItem('excelData', JSON.stringify(tableData));
+        localStorage.setItem('index', JSON.stringify(i));
+        localStorage.setItem('iterator', 1);
+        // console.log(excelDateToJSDate(tableData[i].Date))
+
+        // open each entry in new window
+        window.open('https://he-atoss.horiba.eu:5000/Home/AddOrEdit?date=' + excelDateToJSDate(tableData[i].Date), '_blank');
+        i++;
+
+        // if all entries are done, clear the intervall / dummy for-loop
+        if (i > tableData.length - 1) {
+            clearInterval(interval);
+        }
+    }, 4000); // Wait for 1000ms (1 seconds) between each iteration
+
+});
 
 // Handle file selection
 fileInput.addEventListener('change', (event) => {
@@ -115,7 +189,7 @@ fileInput.addEventListener('change', (event) => {
             i++;
 
             // if all entries are done, clear the intervall / dummy for-loop
-            if (i > sheetData.length-1) {
+            if (i > sheetData.length - 1) {
                 clearInterval(interval);
             }
         }, 4000); // Wait for 1000ms (1 seconds) between each iteration
