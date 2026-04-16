@@ -157,9 +157,11 @@ tableImportButton.addEventListener('click', () => {
         if (i > tableData.length - 1) {
             clearInterval(interval);
             // Clean up localStorage so old data doesn't persist when manually opening pages
-            localStorage.removeItem('excelData');
-            localStorage.removeItem('iterator');
-            localStorage.removeItem('index');
+            setTimeout(() => {
+                localStorage.removeItem('excelData');
+                localStorage.removeItem('iterator');
+                localStorage.removeItem('index');
+            }, 6000); // Wait for 1000ms (1 seconds) before cleanup
         }
     }, 4000); // Wait for 1000ms (1 seconds) between each iteration
 
