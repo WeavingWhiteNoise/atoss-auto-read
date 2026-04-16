@@ -99,7 +99,7 @@ function collectDataFromOverviewTable() {
             Empfaenger: "8001233873",
             Leistungsart: "114012",
             Vorgang: "0130",
-            Arbeitsplatz: "DD330020"
+            Arbeitsplatz: "D330000"
         });
     });
 
