@@ -96,7 +96,7 @@ function collectDataFromOverviewTable() {
             Date: dateText,
             Stunden: timeText,
             Project_name: "Gemeinkosten",
-            Empfaenger: "8001233873",
+            Empfaenger: "8000002561",
             Leistungsart: "114012",
             Vorgang: "0130",
             Arbeitsplatz: "D330000",
