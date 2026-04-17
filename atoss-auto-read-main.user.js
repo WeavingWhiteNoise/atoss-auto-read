@@ -112,6 +112,122 @@ function collectDataFromOverviewTable() {
 
 }
 
+function showEntriesPreview(entries) {
+    return new Promise((resolve) => {
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.inset = '0';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.45)';
+        overlay.style.zIndex = '999999';
+        overlay.style.display = 'flex';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+
+        const dialog = document.createElement('div');
+        dialog.style.background = '#fff';
+        dialog.style.width = 'min(1100px, 92vw)';
+        dialog.style.maxHeight = '85vh';
+        dialog.style.display = 'flex';
+        dialog.style.flexDirection = 'column';
+        dialog.style.borderRadius = '8px';
+        dialog.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.35)';
+        dialog.style.overflow = 'hidden';
+
+        const header = document.createElement('div');
+        header.style.padding = '14px 16px';
+        header.style.borderBottom = '1px solid #ddd';
+        header.style.fontWeight = '600';
+        header.textContent = `Preview import (${entries.length} entries)`;
+
+        const body = document.createElement('div');
+        body.style.padding = '12px 16px';
+        body.style.overflow = 'auto';
+
+        const table = document.createElement('table');
+        table.style.width = '100%';
+        table.style.borderCollapse = 'collapse';
+        table.style.fontSize = '13px';
+
+        const columns = ['Date', 'Stunden', 'Project_name', 'Empfaenger', 'Leistungsart', 'Vorgang', 'Arbeitsplatz', 'Kommentar'];
+
+        const thead = document.createElement('thead');
+        const headRow = document.createElement('tr');
+        columns.forEach((columnName) => {
+            const th = document.createElement('th');
+            th.textContent = columnName;
+            th.style.position = 'sticky';
+            th.style.top = '0';
+            th.style.background = '#f4f4f4';
+            th.style.borderBottom = '1px solid #ddd';
+            th.style.padding = '7px 8px';
+            th.style.textAlign = 'left';
+            headRow.appendChild(th);
+        });
+        thead.appendChild(headRow);
+
+        const tbody = document.createElement('tbody');
+        entries.forEach((entry) => {
+            const row = document.createElement('tr');
+            columns.forEach((columnName) => {
+                const td = document.createElement('td');
+                td.textContent = (entry[columnName] || '').toString();
+                td.style.borderBottom = '1px solid #eee';
+                td.style.padding = '6px 8px';
+                row.appendChild(td);
+            });
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        body.appendChild(table);
+
+        const footer = document.createElement('div');
+        footer.style.display = 'flex';
+        footer.style.justifyContent = 'flex-end';
+        footer.style.gap = '8px';
+        footer.style.padding = '12px 16px';
+        footer.style.borderTop = '1px solid #ddd';
+
+        const cancelButton = document.createElement('button');
+        cancelButton.type = 'button';
+        cancelButton.textContent = 'Cancel';
+        cancelButton.style.padding = '6px 12px';
+        cancelButton.style.cursor = 'pointer';
+
+        const okButton = document.createElement('button');
+        okButton.type = 'button';
+        okButton.textContent = 'OK';
+        okButton.style.padding = '6px 12px';
+        okButton.style.cursor = 'pointer';
+
+        const closeDialog = (result) => {
+            document.removeEventListener('keydown', onKeyDown);
+            overlay.remove();
+            resolve(result);
+        };
+
+        const onKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                closeDialog(false);
+            }
+        };
+
+        cancelButton.addEventListener('click', () => closeDialog(false));
+        okButton.addEventListener('click', () => closeDialog(true));
+        document.addEventListener('keydown', onKeyDown);
+
+        footer.appendChild(cancelButton);
+        footer.appendChild(okButton);
+
+        dialog.appendChild(header);
+        dialog.appendChild(body);
+        dialog.appendChild(footer);
+        overlay.appendChild(dialog);
+        document.body.appendChild(overlay);
+    });
+}
+
 
 // Create a file input dynamically
 const fileInput = document.createElement('input');
@@ -134,10 +250,16 @@ tableImportButton.style.padding = '3px 8px';
 tableImportButton.style.cursor = 'pointer';
 document.body.appendChild(tableImportButton);
 
-tableImportButton.addEventListener('click', () => {
+tableImportButton.addEventListener('click', async () => {
     const tableData = collectDataFromOverviewTable();
     if (!tableData.length) {
         alert("No valid rows found in table.");
+        return;
+    }
+
+    const confirmed = await showEntriesPreview(tableData);
+    if (!confirmed) {
+        console.log('Import canceled by user.');
         return;
     }
 
